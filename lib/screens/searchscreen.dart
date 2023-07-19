@@ -4,8 +4,7 @@ import '../constants/constants.dart';
 import '../widgets/widget_OF_text.dart';
 
 class searchScreen extends StatelessWidget {
-  const searchScreen({super.key});
-
+late final String cityName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,12 +17,18 @@ class searchScreen extends StatelessWidget {
           size: 32,
         ),
       ),
-      body: const Center(
+      body:  Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 18.0),
           child: TextField(
+            //takes any value or character the user write
+            onChanged: (da){},
+            //used to takes value from user
+            onSubmitted: (data){
+              cityName=data;
+              print(cityName);},
             cursorColor: Colors.deepPurple,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white24, width: 3)),
                 focusedBorder: OutlineInputBorder(
