@@ -8,6 +8,8 @@ import 'homescreen.dart';
 
 class searchScreen extends StatelessWidget {
   late final String cityName;
+  searchScreen({required this.updateUI});
+  VoidCallback? updateUI;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +35,7 @@ class searchScreen extends StatelessWidget {
               WeatherModel Weather =
                   await service.getWeather(cityName: cityName);
               WeatherData = Weather;
+              updateUI!();
               Navigator.pop(context);
               //without function of tostring return from print " Instance of 'WeatherModel'"
               //but if you use function of tostring print values you need

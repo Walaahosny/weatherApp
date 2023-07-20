@@ -4,7 +4,15 @@ import 'package:weatherapp/screens/searchscreen.dart';
 import '../models/weatherModel.dart';
 import '../widgets/widget_OF_text.dart';
 
-class homeScreen extends StatelessWidget {
+class homeScreen extends StatefulWidget {
+  @override
+  State<homeScreen> createState() => _homeScreenState();
+}
+
+class _homeScreenState extends State<homeScreen> {
+  void updateUI() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +28,17 @@ class homeScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => searchScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) {
+                          return  searchScreen(
+                            updateUI: updateUI,
+                          );
+                        }
+
+
+                    ));
               },
               icon: const Icon(
                 Icons.search,
@@ -96,4 +113,5 @@ class homeScreen extends StatelessWidget {
     );
   }
 }
+
 WeatherModel? WeatherData;
