@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class WeatherModel {
-  late final String date;
-  late final double temp;
-  late final double Maxtemp;
-  late final double Mintemp;
-  late final String weatherStateName;
-  late final  icon;
-  WeatherModel(
-      {required this.date,
-      required this.Maxtemp,
-      required this.temp,
-      required this.Mintemp,
-      required this.weatherStateName,
-      required this.icon});
+  late String date;
+  late double temp;
+  late double Maxtemp;
+  late double Mintemp;
+  late String weatherStateName;
+
+  WeatherModel({
+    required this.date,
+    required this.Maxtemp,
+    required this.temp,
+    required this.Mintemp,
+    required this.weatherStateName,
+  });
 
   //make constructor to build object name is fromjson
 //named constructor
@@ -22,17 +22,42 @@ class WeatherModel {
     var jsonData = data['forecast']['forecastday'][0]['day'];
 //print(jsonData);
     return WeatherModel(
-        date: data['location']['localtime'],
-        Maxtemp: jsonData['maxtemp_c'],
-        temp: jsonData['avgtemp_c'],
-        Mintemp: jsonData['mintemp_c'],
-        weatherStateName: jsonData['condition']['text'],
-        icon: jsonData['condition']['icon']);
+      date: data['location']['localtime'],
+      Maxtemp: jsonData['maxtemp_c'],
+      temp: jsonData['avgtemp_c'],
+      Mintemp: jsonData['mintemp_c'],
+      weatherStateName: jsonData['condition']['text'],
+    );
   }
 
-@override
-  String toString(){
+  @override
+  String toString() {
+    return 'date=$date  temp=$temp  maxtemp=$Maxtemp    MINtEP=$Mintemp WEATHERnAME=$weatherStateName  ';
+  }
 
-    return 'date=$date  temp=$temp  maxtemp=$Maxtemp    MINtEP=$Mintemp WEATHERnAME=$weatherStateName ICON=$icon';
-}
+  String getImage() {
+    if (weatherStateName == 'Clear' ) {
+      return 'images/all/clear.png';
+    } else if (weatherStateName == 'Snow' ||
+        weatherStateName == 'Sleet' ||
+        weatherStateName == 'Light Rain' ||
+        weatherStateName == 'Heavy Rain') {
+      return 'images/all/rainy.png';
+    }
+
+    else if (weatherStateName == 'Cloudy' ||
+        weatherStateName == 'Light Cloud' ||
+        weatherStateName == 'Light Cloud'
+      ) {
+      return 'images/all/cloudy.png';
+    }
+
+    else if (weatherStateName == 'Thunderstorm' ||
+        weatherStateName == 'Thunder'
+
+    ) {
+      return 'images/all/thunderstorm.png';
+    }
+    return 'images/all/cloudy.png';
+  }
 }

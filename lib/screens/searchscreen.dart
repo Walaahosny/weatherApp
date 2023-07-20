@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/provider.dart';
-import 'package:provider/provider.dart';
 import 'package:weatherapp/models/weatherModel.dart';
-
 import '../constants/constants.dart';
 import '../provider/weather_provider.dart';
 import '../services/weather_services.dart';
 import '../widgets/widget_OF_text.dart';
-import 'homescreen.dart';
+
 
 class searchScreen extends StatelessWidget {
-  late final String cityName;
+  late  String cityName;
   searchScreen({required this.updateUI});
   VoidCallback? updateUI;
   @override
@@ -39,6 +36,7 @@ class searchScreen extends StatelessWidget {
               WeatherModel Weather =
                   await service.getWeather(cityName: cityName);
               Provider.of<weatherProvider>(context,listen: false).WeatherData = Weather;
+              Provider.of<weatherProvider>(context,listen: false).cityName=cityName;
               //updateUI!();
               Navigator.pop(context);
               //without function of tostring return from print " Instance of 'WeatherModel'"

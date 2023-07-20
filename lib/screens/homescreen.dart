@@ -14,9 +14,10 @@ class _homeScreenState extends State<homeScreen> {
   void updateUI() {
     setState(() {});
   }
-
   @override
   Widget build(BuildContext context) {
+    var weatherdata=  Provider.of<weatherProvider>(context).WeatherData;
+
     return Scaffold(
       backgroundColor: Colors.deepPurple.withOpacity(0.6),
       appBar: AppBar(
@@ -47,7 +48,7 @@ class _homeScreenState extends State<homeScreen> {
               ))
         ],
       ),
-      body:     Provider.of<weatherProvider>(context).WeatherData == null
+      body:  weatherdata  == null
           ? const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -60,40 +61,37 @@ class _homeScreenState extends State<homeScreen> {
               ),
             )
           : Container(
-              child: const Column(
+              child:  Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Spacer(
                     flex: 3,
                   ),
                   text_style(
-                    text: 'Cairo',
+                    text: Provider.of<weatherProvider>(context).cityName ?? '' ,
                     size: 32,
                   ),
                   text_style(
-                    text: 'Update:2-3-2022',
+                    text: 'Update : ${weatherdata.date.toString()}',
                     size: 22,
                   ),
                   Spacer(),
-                  Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(
-                        Icons.sunny,
-                        size: 60,
-                      ),
+                     Image.asset(weatherdata.getImage()),
                       text_style(
-                        text: '30',
+                        text:  '${weatherdata.temp.toInt().toString()}',
                         size: 32,
                       ),
                       Column(
                         children: [
                           text_style(
-                            text: 'MaxTemp:30',
+                            text: 'MaxTemp : ${weatherdata.Maxtemp.toInt()}',
                             size: 22,
                           ),
                           text_style(
-                            text: 'MinTemp:20',
+                            text:  'MinTemp : ${weatherdata.Mintemp.toInt()}' ,
                             size: 22,
                           ),
                         ],
@@ -102,7 +100,7 @@ class _homeScreenState extends State<homeScreen> {
                   ),
                   Spacer(),
                   text_style(
-                    text: 'Clear',
+                    text: weatherdata.weatherStateName ,
                     size: 32,
                   ),
                   Spacer(

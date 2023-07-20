@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Provider(
+    return ChangeNotifierProvider(
       create: (BuildContext context) { return weatherProvider() ;},
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
