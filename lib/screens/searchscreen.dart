@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
+import '../services/weather_services.dart';
 import '../widgets/widget_OF_text.dart';
 
 class searchScreen extends StatelessWidget {
@@ -26,7 +27,9 @@ late final String cityName;
             //used to takes value from user
             onSubmitted: (data){
               cityName=data;
-              print(cityName);},
+              weatherServices service=weatherServices();
+              service.getWeather(cityName: cityName);
+             },
             cursorColor: Colors.deepPurple,
             decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
