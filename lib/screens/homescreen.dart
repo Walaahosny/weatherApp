@@ -19,10 +19,12 @@ class _homeScreenState extends State<homeScreen> {
     var weatherdata=  Provider.of<weatherProvider>(context).WeatherData;
 
     return Scaffold(
-      backgroundColor: Colors.deepPurple.withOpacity(0.6),
+  //    backgroundColor: Provider.of<weatherProvider>(context).WeatherData==null?Colors.deepPurple:Provider.of<weatherProvider>(context).WeatherData!.getColor(),
+
       appBar: AppBar(
+      //  backgroundColor: weatherdata  == null?Colors.black:Provider.of<weatherProvider>(context).WeatherData!.getColor(),
+
         elevation: 0,
-        backgroundColor: Colors.deepPurple.withOpacity(0.6),
         title: const text_style(
           text: 'Weather App',
           size: 32,
@@ -50,6 +52,7 @@ class _homeScreenState extends State<homeScreen> {
       ),
       body:  weatherdata  == null
           ? const Center(
+
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -61,6 +64,16 @@ class _homeScreenState extends State<homeScreen> {
               ),
             )
           : Container(
+decoration: BoxDecoration(gradient: LinearGradient(colors: [
+
+  weatherdata.getColor(),
+  weatherdata.getColor()[50]!,
+  weatherdata.getColor()[300]!
+
+],begin: Alignment.topCenter,end: Alignment.bottomCenter)
+
+),
+
               child:  Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

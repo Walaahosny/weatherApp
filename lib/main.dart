@@ -4,7 +4,11 @@ import 'package:weatherapp/provider/weather_provider.dart';
 import 'package:weatherapp/screens/homescreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (BuildContext context) {
+        return weatherProvider();
+      },
+      child:  MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,17 +17,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-    return ChangeNotifierProvider(
-      create: (BuildContext context) { return weatherProvider() ;},
-      child: MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-        title: 'WEATHER APP',
-
-        home: homeScreen(),
-      ),
+      title: 'WEATHER APP',
+      theme: ThemeData(
+          primarySwatch: Provider.of<weatherProvider>(context).WeatherData ==
+                  null
+              ? Colors.green
+              : Provider.of<weatherProvider>(context).WeatherData!.getColor()),
+      home: homeScreen(),
     );
   }
 }
-
-

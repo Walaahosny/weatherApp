@@ -34,6 +34,31 @@ class WeatherModel {
   String toString() {
     return 'date=$date  temp=$temp  maxtemp=$Maxtemp    MINtEP=$Mintemp WEATHERnAME=$weatherStateName  ';
   }
+  MaterialColor getColor() {
+    if (weatherStateName == 'Clear' ||weatherStateName == 'Sunny' ) {
+      return Colors.amber;
+    } else if (weatherStateName == 'Snow' ||
+        weatherStateName == 'Sleet' ||
+        weatherStateName == 'Light Rain' ||
+        weatherStateName == 'Heavy Rain') {
+      return Colors.cyan;
+    }
+
+    else if (weatherStateName == 'Cloudy' ||
+        weatherStateName == 'Light Cloud' ||
+        weatherStateName == 'Light Cloud'||
+        weatherStateName == 'Partly cloudy'
+    ) {
+      return Colors.grey;
+    }
+
+    else if (weatherStateName == 'Thunderstorm' ||
+        weatherStateName == 'Thunder') {
+      return Colors.yellow;
+    }
+    return Colors.red;
+
+  }
 
   String getImage() {
     if (weatherStateName == 'Clear' ) {

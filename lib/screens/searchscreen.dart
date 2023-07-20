@@ -8,16 +8,16 @@ import '../widgets/widget_OF_text.dart';
 
 
 class searchScreen extends StatelessWidget {
-  late  String cityName;
-  searchScreen({required this.updateUI});
+    String? cityName;
+  searchScreen({super.key, required this.updateUI});
   VoidCallback? updateUI;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple.withOpacity(0.6),
+//backgroundColor: Provider.of<weatherProvider>(context).WeatherData==null?Colors.deepPurple:Provider.of<weatherProvider>(context).WeatherData!.getColor(),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.deepPurple.withOpacity(0.6),
+        //backgroundColor: Provider.of<weatherProvider>(context).WeatherData==null?Colors.deepPurple:Provider.of<weatherProvider>(context).WeatherData!.getColor(),
         title: const text_style(
           text: 'Search',
           size: 32,
@@ -28,13 +28,13 @@ class searchScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 18.0),
           child: TextField(
             //takes any value or character the user write
-            onChanged: (da) {},
+            onChanged: (da) {cityName = da;},
             //used to takes value from user
             onSubmitted: (data) async {
               cityName = data;
               weatherServices service = weatherServices();
-              WeatherModel Weather =
-                  await service.getWeather(cityName: cityName);
+              WeatherModel? Weather =
+                  await service.getWeather(cityName: cityName!);
               Provider.of<weatherProvider>(context,listen: false).WeatherData = Weather;
               Provider.of<weatherProvider>(context,listen: false).cityName=cityName;
               //updateUI!();
@@ -44,7 +44,7 @@ class searchScreen extends StatelessWidget {
               print(Weather);
             },
             cursorColor: Colors.deepPurple,
-            decoration: const InputDecoration(
+            decoration:  InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white24, width: 3)),
                 focusedBorder: OutlineInputBorder(
@@ -55,9 +55,20 @@ class searchScreen extends StatelessWidget {
                 labelStyle: TextStyle(color: kcolor),
                 hintText: 'Enter City Name',
                 hintStyle: TextStyle(color: kcolor),
-                prefixIcon: Icon(
-                  Icons.search,
+                prefixIcon: IconButton(
+                icon:  Icon(Icons.search),
                   color: kcolor,
+                  onPressed: () async {
+
+                  weatherServices service = weatherServices();
+                  WeatherModel? Weather =
+                      await service.getWeather(cityName: cityName!);
+                  Provider.of<weatherProvider>(context,listen: false).WeatherData = Weather;
+                  Provider.of<weatherProvider>(context,listen: false).cityName=cityName;
+                  //updateUI!();
+                  Navigator.pop(context);
+
+                },
                 ),
                 border: OutlineInputBorder()),
           ),
