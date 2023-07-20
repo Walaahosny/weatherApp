@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp/screens/searchscreen.dart';
 
+import '../models/weatherModel.dart';
 import '../widgets/widget_OF_text.dart';
 
 class homeScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,17 +29,71 @@ class homeScreen extends StatelessWidget {
               ))
         ],
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            text_style(
-              text: 'There is no weather  starting search now ',
-              size: 28,
+      body: WeatherData == null
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  text_style(
+                    text: 'There is no weather  starting search now ',
+                    size: 28,
+                  ),
+                ],
+              ),
+            )
+          : Container(
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Spacer(
+                    flex: 3,
+                  ),
+                  text_style(
+                    text: 'Cairo',
+                    size: 32,
+                  ),
+                  text_style(
+                    text: 'Update:2-3-2022',
+                    size: 22,
+                  ),
+                  Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(
+                        Icons.sunny,
+                        size: 60,
+                      ),
+                      text_style(
+                        text: '30',
+                        size: 32,
+                      ),
+                      Column(
+                        children: [
+                          text_style(
+                            text: 'MaxTemp:30',
+                            size: 22,
+                          ),
+                          text_style(
+                            text: 'MinTemp:20',
+                            size: 22,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  text_style(
+                    text: 'Clear',
+                    size: 32,
+                  ),
+                  Spacer(
+                    flex: 5,
+                  )
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
+WeatherModel? WeatherData;

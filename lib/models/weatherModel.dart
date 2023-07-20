@@ -6,7 +6,7 @@ class WeatherModel {
   late final double Maxtemp;
   late final double Mintemp;
   late final String weatherStateName;
-  late final IconData icon;
+  late final  icon;
   WeatherModel(
       {required this.date,
       required this.Maxtemp,
@@ -17,14 +17,22 @@ class WeatherModel {
 
   //make constructor to build object name is fromjson
 //named constructor
-
-  WeatherModel.fromJson(dynamic data) {
-    var jsonData = data['forecast']['forecastday'][0];
-    date = data['location']['localtime'];
-    Maxtemp = jsonData['maxtemp_c'];
-    temp = jsonData['avgtemp_c'];
-    Mintemp = jsonData['mintemp_c'];
-    weatherStateName = jsonData['condition']['text'];
-    icon = jsonData['condition']['icon'];
+//factory return object,factory constructor solve problem of nullable  ? in variables of model
+  factory WeatherModel.fromJson(dynamic data) {
+    var jsonData = data['forecast']['forecastday'][0]['day'];
+//print(jsonData);
+    return WeatherModel(
+        date: data['location']['localtime'],
+        Maxtemp: jsonData['maxtemp_c'],
+        temp: jsonData['avgtemp_c'],
+        Mintemp: jsonData['mintemp_c'],
+        weatherStateName: jsonData['condition']['text'],
+        icon: jsonData['condition']['icon']);
   }
+
+@override
+  String toString(){
+
+    return 'date=$date  temp=$temp  maxtemp=$Maxtemp    MINtEP=$Mintemp WEATHERnAME=$weatherStateName ICON=$icon';
+}
 }
