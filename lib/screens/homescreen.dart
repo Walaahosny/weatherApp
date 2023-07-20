@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weatherapp/screens/searchscreen.dart';
 
-import '../models/weatherModel.dart';
+import '../provider/weather_provider.dart';
 import '../widgets/widget_OF_text.dart';
 
 class homeScreen extends StatefulWidget {
@@ -46,8 +47,8 @@ class _homeScreenState extends State<homeScreen> {
               ))
         ],
       ),
-      body: WeatherData == null
-          ? Center(
+      body:     Provider.of<weatherProvider>(context).WeatherData == null
+          ? const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -114,4 +115,3 @@ class _homeScreenState extends State<homeScreen> {
   }
 }
 
-WeatherModel? WeatherData;
